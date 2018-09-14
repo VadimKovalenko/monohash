@@ -5,10 +5,22 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "start": "node app.js"
   },
   "dependencies": {
-    "vue": "^2.5.17"
+    "vue": "^2.5.17",
+    "axios": "^0.18.0",
+    "npm": "^3.0.0",
+    "serve-favicon": "^2.5.0",
+    "vue-material": "^1.0.0-beta-10.2",
+    "vue-qriously": "^1.1.1",
+    "vue-router": "^3.0.1",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.18.4"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.3",
