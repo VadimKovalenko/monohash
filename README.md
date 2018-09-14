@@ -1,4 +1,4 @@
-# test-vue
+# monohash
 
 ## Project setup
 ```
