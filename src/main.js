@@ -3,6 +3,7 @@
 import Vue from 'vue/dist/vue.js'
 import VueMaterial from 'vue-material'
 import VueRouter from 'vue-router'
+import VueQriously from 'vue-qriously'
 import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
 import App from './App'
@@ -11,6 +12,7 @@ import router from './router'
 Vue.config.productionTip = false
 Vue.use(VueMaterial)
 Vue.use(VueRouter)
+Vue.use(VueQriously)
 
 /* eslint-disable no-new */
 new Vue({
