@@ -8,7 +8,7 @@
       <label>Related private key</label>
       <md-input v-model="password" type="password"></md-input>
     </md-field>
-    <md-button class="md-raised md-primary decrypt-btn" @click="handleDecryptText(textarea, password)">Decrypt</md-button>
+    <md-button class="md-raised md-primary decrypt-btn" :disabled="isDisabled" @click="handleDecryptText(textarea, password)">Decrypt</md-button>
     <transition name="fade">
       <DecryptResponse v-if="decrypted" :decryptedData="decrypted" @closeDecryptionBlockChild="closeDecryptionBlockParent"/>
     </transition>
@@ -36,6 +36,15 @@ export default {
     },
     closeDecryptionBlockParent() {
       this.decrypted = ''
+    }
+  },
+  computed: {
+    isDisabled() {
+      if (this.password !== '' && this.textarea !== '') {
+        return false
+      } else {
+        return true
+      }
     }
   },
   components: {

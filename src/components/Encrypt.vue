@@ -8,7 +8,7 @@
       <label>Input text to encrypt</label>
       <md-textarea v-model="textarea"></md-textarea>
     </md-field>
-    <md-button class="md-raised md-accent encrypt-btn"  @click="handleEncryptText(textarea, password)">Encrypt</md-button>
+    <md-button class="md-raised md-accent encrypt-btn" :disabled="isDisabled" @click="handleEncryptText(textarea, password)">Encrypt</md-button>
     <transition name="fade">
       <EncryptResponse v-if="encrypted" :password="responsePassword" :encryptedData="encrypted" @closeEncryptionBlockChild="closeEncryptionBlockParent"/>
     </transition>
@@ -40,6 +40,15 @@ export default {
     closeEncryptionBlockParent() {
       this.encrypted = ''
       this.responsePassword = ''
+    },
+  },
+  computed: {
+    isDisabled() {
+      if (this.password !== '' && this.textarea !== '') {
+        return false
+      } else {
+        return true
+      }
     }
   },
   components: {
