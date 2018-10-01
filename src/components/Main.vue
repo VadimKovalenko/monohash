@@ -38,9 +38,10 @@ export default {
 <style scoped>
 h1, h2 {
   font-weight: normal;
+  text-align: center;
 }
 .tab-layout {
-  width: 1140px;
+  width: inherit;
   margin-left: auto;
   margin-right: auto;
 }

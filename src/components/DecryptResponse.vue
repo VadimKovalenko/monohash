@@ -25,3 +25,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .md-title {
+    text-align: center;
+  }
+</style>

@@ -6,7 +6,7 @@
         <md-icon class="close-btn"><span @click="closeEncryptionBlockChild">close</span></md-icon>
       </md-card-header>
       <md-card-content>
-        <div>
+        <div class="qr-block">
           <qriously v-model="password" :size="150" />
         </div>
       </md-card-content>
@@ -34,3 +34,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .md-title,
+  .qr-block {
+    text-align: center;
+  }
+</style>
