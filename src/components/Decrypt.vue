@@ -12,11 +12,13 @@
     <transition name="fade">
       <DecryptResponse v-if="decrypted" :decryptedData="decrypted" @closeDecryptionBlockChild="closeDecryptionBlockParent"/>
     </transition>
+    <DecryptionError/>
   </div>
 </template>
 
 <script>
 import DecryptResponse from './DecryptResponse'
+import DecryptionError from './DecryptionError'
 import Api from './../services/Api'
 import DecryptService from './../services/DecryptService'
 
@@ -31,8 +33,13 @@ export default {
     },
   methods: {
     async handleDecryptText(text, password) {
-      const response = await DecryptService.decryptPost(text, password)
-      this.decrypted = response.data
+        const response = await DecryptService.decryptPost(text, password)
+        if (response.data !== 'Bad input string') {
+          this.decrypted = response.data
+        } else {
+          //TODO hihlight error component with interval
+          console.log(response.data)
+        }
     },
     closeDecryptionBlockParent() {
       this.decrypted = ''
@@ -49,6 +56,7 @@ export default {
   },
   components: {
     DecryptResponse,
+    DecryptionError,
   }
 }
 </script>
