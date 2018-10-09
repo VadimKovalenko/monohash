@@ -12,7 +12,9 @@
     <transition name="fade">
       <DecryptResponse v-if="decrypted" :decryptedData="decrypted" @closeDecryptionBlockChild="closeDecryptionBlockParent"/>
     </transition>
-    <DecryptionError/>
+    <transition name="fade">
+      <DecryptionError v-if="isShowDecriptionErr"/>
+    </transition>
   </div>
 </template>
 
@@ -28,7 +30,8 @@ export default {
       return {
         textarea: '',
         password: '',
-        decrypted: ''
+        decrypted: '',
+        isShowDecriptionErr: false
       }
     },
   methods: {
@@ -37,8 +40,12 @@ export default {
         if (response.data !== 'Bad input string') {
           this.decrypted = response.data
         } else {
-          //TODO hihlight error component with interval
-          console.log(response.data)
+          //Hihlight error component with timeout
+          this.isShowDecriptionErr = true;
+          var self = this;
+          setTimeout(function(){
+              self.isShowDecriptionErr = false;
+          }, 3000);
         }
     },
     closeDecryptionBlockParent() {

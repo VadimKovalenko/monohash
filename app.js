@@ -9,10 +9,10 @@ const app = express()
 app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(cors())
-app.use(express.static(__dirname + '/dist/'))
+app.use(express.static(__dirname + '/src/'))
 
 app.get(/.*/, function(req, res) {
-  res.sendfile(__dirname + "/dist/index.html");
+  res.sendfile(__dirname + "/src/index.html");
 })
 
 app.post('/encrypt', function(req, res) {
