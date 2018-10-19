@@ -13,7 +13,7 @@
       <DecryptResponse v-if="decrypted" :decryptedData="decrypted" @closeDecryptionBlockChild="closeDecryptionBlockParent"/>
     </transition>
     <transition name="fade">
-      <DecryptionError v-if="isShowDecriptionErr"/>
+      <DecryptionError v-if="isShowDecriptionErr" @closeDecryptionErrorChild="closeDecryptionErrorParent"/>
     </transition>
   </div>
 </template>
@@ -50,6 +50,9 @@ export default {
     },
     closeDecryptionBlockParent() {
       this.decrypted = ''
+    },
+    closeDecryptionErrorParent() {
+      this.isShowDecriptionErr = false
     }
   },
   computed: {
