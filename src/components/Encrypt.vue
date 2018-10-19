@@ -12,6 +12,7 @@
     <transition name="fade">
       <EncryptResponse v-if="encrypted" :password="responsePassword" :encryptedData="encrypted" @closeEncryptionBlockChild="closeEncryptionBlockParent"/>
     </transition>
+    <Loader v-if="isLoading"/>
   </div>
 </template>
 
@@ -20,6 +21,7 @@
 import EncryptResponse from './EncryptResponse'
 import Api from './../services/Api'
 import EncryptService from './../services/EncryptService'
+import Loader from './Loader'
 
 export default {
   name: 'Encrypt',
@@ -29,13 +31,16 @@ export default {
       password: '',
       encrypted: '',
       responsePassword: '',
+      isLoading: false,
     }
   },
   methods: {
     async handleEncryptText(text, password) {
+      this.isLoading = true
       const response = await EncryptService.ecnryptPost(text, password)
       this.encrypted = response.data
       this.responsePassword = password
+      this.isLoading = false
     },
     closeEncryptionBlockParent() {
       this.encrypted = ''
@@ -52,12 +57,12 @@ export default {
     }
   },
   components: {
-    EncryptResponse
+    EncryptResponse,
+    Loader
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h1, h2 {
   font-weight: normal;

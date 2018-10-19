@@ -15,12 +15,14 @@
     <transition name="fade">
       <DecryptionError v-if="isShowDecriptionErr" @closeDecryptionErrorChild="closeDecryptionErrorParent"/>
     </transition>
+    <Loader v-if="isLoading"/>
   </div>
 </template>
 
 <script>
 import DecryptResponse from './DecryptResponse'
 import DecryptionError from './DecryptionError'
+import Loader from './Loader'
 import Api from './../services/Api'
 import DecryptService from './../services/DecryptService'
 
@@ -31,17 +33,21 @@ export default {
         textarea: '',
         password: '',
         decrypted: '',
-        isShowDecriptionErr: false
+        isShowDecriptionErr: false,
+        isLoading: false,
       }
     },
   methods: {
     async handleDecryptText(text, password) {
+        this.isLoading = true
         const response = await DecryptService.decryptPost(text, password)
         if (response.data !== 'Bad input string') {
           this.decrypted = response.data
+          this.isLoading = false
         } else {
           //Hihlight error component with timeout
           this.isShowDecriptionErr = true;
+          this.isLoading = false
           var self = this;
           setTimeout(function(){
               self.isShowDecriptionErr = false;
@@ -67,11 +73,11 @@ export default {
   components: {
     DecryptResponse,
     DecryptionError,
+    Loader
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h1, h2 {
   font-weight: normal;
