@@ -1,0 +1,17 @@
+#app {
+  width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  font-weight: normal;
+}
+
+@media (max-width: 720px) {
+  #app {
+    width: 100%;
+  }
+  body {
+    display: flex;
+    place-items: center;
+  }
+}

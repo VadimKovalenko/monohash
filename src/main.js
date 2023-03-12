@@ -1,23 +1,26 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue/dist/vue.js'
-import VueMaterial from 'vue-material'
-import VueRouter from 'vue-router'
-import VueQriously from 'vue-qriously'
-import 'vue-material/dist/vue-material.min.css'
-import 'vue-material/dist/theme/default.css'
-import App from './App'
-import router from './router'
+import { createApp } from "vue";
+import PrimeVue from "primevue/config";
+import App from "./App.vue";
 
-Vue.config.productionTip = false
-Vue.use(VueMaterial)
-Vue.use(VueRouter)
-Vue.use(VueQriously)
+import "primevue/resources/themes/lara-light-indigo/theme.css"; // core
+import "primevue/resources/primevue.min.css"; //core css
+import "primeicons/primeicons.css"; //icons
 
-/* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
-})
+import "./assets/main.css"; // custom
+
+import Fieldset from "primevue/fieldset/sfc";
+import InputText from "primevue/inputtext";
+import Textarea from "primevue/textarea";
+import Button from "primevue/button";
+import Card from "primevue/card";
+
+const app = createApp(App);
+app.use(PrimeVue);
+
+app.component("InputText", InputText);
+app.component("Fieldset", Fieldset);
+app.component("Textarea", Textarea);
+app.component("Button", Button);
+app.component("Card", Card);
+
+app.mount("#app");

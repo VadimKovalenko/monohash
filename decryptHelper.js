@@ -1,14 +1,22 @@
-var crypto = require('crypto');
+"use strict";
+import { Buffer } from "node:buffer";
+const { scryptSync, createDecipheriv } = await import("node:crypto");
 
-const decrypt = function (text, password) {
-    try {
-        var decipher = crypto.createDecipher('aes-256-cbc', password);
-        var decrypted = decipher.update(text.toString(), 'hex', 'utf8') + decipher.final('utf8');
-        return decrypted;
-    } catch (exception) {
-        let err = 'Bad input string'
-        return err;
-    }
-}
+const decrypt = (text, password) => {
+  const algorithm = "aes-192-cbc";
+  // Use the async `crypto.scrypt()` instead.
+  const key = scryptSync(password, "salt", 24);
+  // Herdcoded iv
+  const iv = Buffer.from("0123456789abcdef");
 
-module.exports = decrypt
+  try {
+    const decipher = createDecipheriv(algorithm, key, iv);
+    let decrypted = decipher.update(text, "hex", "utf8");
+    decrypted += decipher.final("utf8");
+    return decrypted;
+  } catch (e) {
+    throw new Error(e);
+  }
+};
+
+export default decrypt;

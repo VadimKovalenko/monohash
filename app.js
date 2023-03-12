@@ -1,34 +1,50 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const cors = require('cors')
-const morgan = require('morgan')
-const encrypt = require('./encryptHelper')
-const decrypt = require('./decryptHelper')
+import path from "path";
+import express, { json, urlencoded } from "express";
+import cors from "cors";
+import morgan from "morgan";
+import encrypt from "./encryptHelper.js";
+import decrypt from "./decryptHelper.js";
+import { fileURLToPath } from "url";
 
-const app = express()
-app.use(morgan('combined'))
-app.use(bodyParser.json())
-app.use(cors())
-app.use(express.static(__dirname + '/dist/'))
+const __filename = fileURLToPath(import.meta.url);
 
-app.get(/.*/, function(req, res) {
-  res.sendfile(__dirname + "/dist/index.html");
-})
+const __dirname = path.dirname(__filename);
 
-app.post('/encrypt', function(req, res) {
-  const text = req.body.text
-  const password = req.body.password
-  let encryptRes
-  encryptRes = encrypt(text, password)
-  res.send(encryptRes)
-})
+const app = express();
+app.use(morgan("combined"));
+app.use(json());
+app.use(
+  urlencoded({
+    extended: true,
+  })
+);
+app.use(cors());
+app.use(express.static(__dirname + "/dist/"));
 
-app.post('/decrypt', function(req, res) {
-  const text = req.body.text
-  const password = req.body.password
-  let decryptRes
-  decryptRes = decrypt(text, password)
-  res.send(decryptRes)
-})
+app.get(/.*/, function (req, res) {
+  res.send(__dirname + "/dist/index.html");
+});
 
-app.listen(process.env.PORT || 3000)
+app.post("/encrypt", async (req, res) => {
+  const { text, password } = req.body;
+  let encryptRes;
+  encryptRes = await encrypt(text, password);
+  res.send(encryptRes);
+});
+
+app.post("/decrypt", (req, res) => {
+  const text = req.body.text;
+  const password = req.body.password;
+  let decryptRes;
+  try {
+    decryptRes = decrypt(text, password);
+    res.send(decryptRes);
+  } catch (e) {
+    res.status(500).send(e);
+  }
+});
+
+// eslint-disable-next-line no-undef
+app.listen(process.env.PORT || 3000, () => {
+  console.log("Server is running");
+});

@@ -1,28 +1,45 @@
-# monohash
+# monohash-vue3-docker
 
-## Project setup
-```
+## Project Setup
+
+```sh
 npm install
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### Compile and Hot-Reload for Development
 
-### Compiles and minifies for production
+```sh
+npm run dev
 ```
+Check http://localhost:5173/
+
+### Compile and Minify for Production
+
+```sh
 npm run build
 ```
 
-### Lints and fixes files
-```
+### Lint with [ESLint](https://eslint.org/)
+
+```sh
 npm run lint
 ```
 
-## Development environment
-### When working on local machine:
-1. In "app.js" switch back to "/src" folder. After finishing replace back to "/dist"
-2. In "src/services/Api.js" change path to local address of your backend server (http://localhost:3000/). After finishing replace back your prod URL
-3. **npm run serve** for frontend and **npm run start** for backend
-4. **npm run build** when ready to push changes
+### Run local server
+
+```sh
+node app
+```
+
+# Migration:
+Use PrimeVue (https://primevue.org/setup) instead of vue-material
+
+## Steps ##
+1. Create frontend with tab panes first (Done)
+2. Connect Decryption/Encryption components (Done)
+3. Connect server side logic for the Decryption/Encryption (Done)
+4. Apply built-in crypto module (Done)
+5. Setup QR code feature (Todo)
+6. Refactor error handling (Todo)
+7. Prettify frontend (Todo)
+8. Wrap application into Docker (Todo)
