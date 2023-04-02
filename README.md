@@ -34,6 +34,33 @@ node app
 # Migration:
 Use PrimeVue (https://primevue.org/setup) instead of vue-material
 
+# Docker setup
+### Run docker instance
+
+1. Build Docker image
+
+    ```
+    docker build -t monohash-docker .
+    ```
+
+2. Run Docker conatiner
+    ```
+    docker run -p 3000:3000 monohash-docker
+    ```
+
+    Visit application on `http://localhost:3000`
+
+    📛 To stop container, run:
+    ```
+    docker ps
+    docker stop <CONTAINER_ID>
+    ```
+
+3. If app will require env variable, pass it to the container using this command
+    ```
+    docker run -p 3000:3000 -e NODE_ENV=production monohash-docker
+    ```
+
 ## Steps ##
 1. Create frontend with tab panes first (Done)
 2. Connect Decryption/Encryption components (Done)
@@ -42,4 +69,4 @@ Use PrimeVue (https://primevue.org/setup) instead of vue-material
 5. Setup QR code feature (Todo)
 6. Refactor error handling (Todo)
 7. Prettify frontend (Todo)
-8. Wrap application into Docker (Todo)
+8. Wrap application into Docker (Done)
